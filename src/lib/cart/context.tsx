@@ -4,9 +4,8 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
-  useState,
+  useSyncExternalStore,
 } from 'react';
 import { CART_MAX_QUANTITY, CART_STORAGE_KEY } from '@/lib/constants/accessories';
 import type { Accessory, CartItem } from '@/lib/types';
@@ -63,22 +62,60 @@ function parseStoredCart(raw: string | null): CartItem[] {
   }
 }
 
+let cartItems: CartItem[] = [];
+const emptyCart: CartItem[] = [];
+let loadedFromStorage = false;
+const listeners = new Set<() => void>();
+
+function readCartSnapshot(): CartItem[] {
+  if (!loadedFromStorage && typeof window !== 'undefined') {
+    cartItems = parseStoredCart(window.localStorage.getItem(CART_STORAGE_KEY));
+    loadedFromStorage = true;
+  }
+  return cartItems;
+}
+
+function readCartServerSnapshot(): CartItem[] {
+  return emptyCart;
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+  };
+}
+
+function emitChange() {
+  for (const listener of listeners) listener();
+}
+
+function persist() {
+  if (typeof window === 'undefined') return;
+  window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
+}
+
+function updateCart(updater: (current: CartItem[]) => CartItem[]) {
+  cartItems = updater(cartItems);
+  persist();
+  emitChange();
+}
+
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [hydrated, setHydrated] = useState(false);
+  const items = useSyncExternalStore(
+    subscribe,
+    readCartSnapshot,
+    readCartServerSnapshot
+  );
 
-  useEffect(() => {
-    setItems(parseStoredCart(window.localStorage.getItem(CART_STORAGE_KEY)));
-    setHydrated(true);
-  }, []);
-
-  useEffect(() => {
-    if (!hydrated) return;
-    window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
-  }, [items, hydrated]);
+  const hydrated = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false
+  );
 
   const addItem = useCallback((accessory: Accessory, quantity = 1) => {
-    setItems((current) => {
+    updateCart((current) => {
       const existing = current.find((item) => item.id === accessory.id);
       if (existing) {
         return current.map((item) =>
@@ -102,15 +139,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const removeItem = useCallback((id: string) => {
-    setItems((current) => current.filter((item) => item.id !== id));
+    updateCart((current) => current.filter((item) => item.id !== id));
   }, []);
 
   const setQuantity = useCallback((id: string, quantity: number) => {
     if (quantity < 1) {
-      setItems((current) => current.filter((item) => item.id !== id));
+      updateCart((current) => current.filter((item) => item.id !== id));
       return;
     }
-    setItems((current) =>
+    updateCart((current) =>
       current.map((item) =>
         item.id === id ? { ...item, quantity: clampQuantity(quantity) } : item
       )
@@ -118,7 +155,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const increment = useCallback((id: string) => {
-    setItems((current) =>
+    updateCart((current) =>
       current.map((item) =>
         item.id === id
           ? { ...item, quantity: clampQuantity(item.quantity + 1) }
@@ -128,7 +165,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const decrement = useCallback((id: string) => {
-    setItems((current) =>
+    updateCart((current) =>
       current.flatMap((item) => {
         if (item.id !== id) return [item];
         if (item.quantity <= 1) return [];
@@ -137,7 +174,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     );
   }, []);
 
-  const clear = useCallback(() => setItems([]), []);
+  const clear = useCallback(() => {
+    updateCart(() => []);
+  }, []);
 
   const getQuantity = useCallback(
     (id: string) => items.find((item) => item.id === id)?.quantity ?? 0,

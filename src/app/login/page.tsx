@@ -1,10 +1,10 @@
 // src/app/login/page.tsx
 'use client';
 
-import { useState, useActionState, useEffect } from 'react';
+import { Suspense, useState, useActionState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Eye, EyeOff, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, Loader2, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/shared/section-heading';
 import { signInWithEmail, signInWithGoogle } from '@/lib/auth/actions';
@@ -13,6 +13,20 @@ import { AUTH_ERRORS } from '@/lib/constants/auth';
 const initialState = { success: false, error: undefined };
 
 export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="pt-24 pb-24 min-h-screen flex items-center justify-center text-muted-foreground">
+          Loading...
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
+  );
+}
+
+function LoginForm() {
   const searchParams = useSearchParams();
   const redirectError = searchParams.get('error');
 
@@ -22,15 +36,13 @@ export default function LoginPage() {
     initialState
   );
   const [googleLoading, setGoogleLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (redirectError === 'session_expired') {
-      setSuccessMessage(AUTH_ERRORS.SESSION_EXPIRED);
-    } else if (redirectError === 'auth_failed') {
-      setSuccessMessage('Authentication failed. Please try again.');
-    }
-  }, [redirectError]);
+  const successMessage =
+    redirectError === 'session_expired'
+      ? AUTH_ERRORS.SESSION_EXPIRED
+      : redirectError === 'auth_failed'
+        ? 'Authentication failed. Please try again.'
+        : null;
 
   const handleGoogleSignIn = async () => {
     setGoogleLoading(true);
@@ -187,7 +199,7 @@ export default function LoginPage() {
             </Button>
 
             <p className="text-center text-sm text-muted-foreground">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <Link
                 href="/register"
                 className="text-accent hover:underline font-medium"

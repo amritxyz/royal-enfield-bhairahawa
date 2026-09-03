@@ -1,4 +1,5 @@
 // src/app/account/page.tsx
+import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getCurrentUser, getCurrentUserProfile } from '@/lib/auth/session';
@@ -44,9 +45,11 @@ export default async function AccountPage() {
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center">
                   {profile?.avatar_url ? (
-                    <img
+                    <Image
                       src={profile.avatar_url}
                       alt={profile.full_name ?? 'User'}
+                      width={64}
+                      height={64}
                       className="w-full h-full rounded-full object-cover"
                     />
                   ) : (

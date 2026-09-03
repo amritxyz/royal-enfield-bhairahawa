@@ -3,9 +3,7 @@
 
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { motorcycles } from '@/lib/constants/motorcycles';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { SectionHeading } from '@/components/shared/section-heading';
@@ -37,8 +35,8 @@ export function MotorcycleLineup() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {series350.map((moto, index) => (
-              <MotorcycleCard key={moto.id} motorcycle={moto} index={index} />
+            {series350.map((moto) => (
+              <MotorcycleCard key={moto.id} motorcycle={moto} />
             ))}
           </div>
         </div>
@@ -54,8 +52,8 @@ export function MotorcycleLineup() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {series400.map((moto, index) => (
-              <MotorcycleCard key={moto.id} motorcycle={moto} index={index} />
+            {series400.map((moto) => (
+              <MotorcycleCard key={moto.id} motorcycle={moto} />
             ))}
           </div>
         </div>
@@ -66,10 +64,8 @@ export function MotorcycleLineup() {
 
 function MotorcycleCard({
   motorcycle,
-  index,
 }: {
   motorcycle: (typeof motorcycles)[number];
-  index: number;
 }) {
   return (
     <Card className="group relative bg-secondary/50 border-white/5 hover:border-accent/30 transition-all duration-500 overflow-hidden">

@@ -1,19 +1,21 @@
 // src/components/shared/animated-text.tsx
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { type ElementType, useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
+
+type AnimatedTextTag = 'h1' | 'h2' | 'h3' | 'p' | 'span';
 
 interface AnimatedTextProps {
   text: string;
   className?: string;
-  as?: 'h1' | 'h2' | 'h3' | 'p' | 'span';
+  as?: AnimatedTextTag;
 }
 
 export function AnimatedText({
   text,
   className,
-  as: Component = 'span',
+  as: Tag = 'span',
 }: AnimatedTextProps) {
   const ref = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -32,6 +34,8 @@ export function AnimatedText({
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
+
+  const Component = Tag as ElementType;
 
   return (
     <Component ref={ref} className={cn(className)}>

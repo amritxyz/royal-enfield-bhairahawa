@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { createClient } from '@/lib/supabase/server';
 import { AUTH_CONFIG, AUTH_ERRORS } from '@/lib/constants/auth';
-import { setSessionStartCookie, clearSessionStartCookie } from './session';
+import { setSessionStartCookie } from './session';
 
 type AuthState = {
   success: boolean;

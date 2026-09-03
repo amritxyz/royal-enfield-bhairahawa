@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { createClient } from '@/lib/supabase/server';
 import { AUTH_CONFIG, AUTH_ERRORS } from '@/lib/constants/auth';
-import { setSessionStartCookie, clearSessionStartCookie } from './session';
+import { setSessionStartCookieStore } from './session';
 
 type AuthState = {
   success: boolean;
@@ -46,10 +46,7 @@ export async function signInWithEmail(
   }
 
   // Set the 1-day session marker
-  const response = NextResponse.redirect(
-    new URL(AUTH_CONFIG.DEFAULT_REDIRECT, process.env.NEXT_PUBLIC_APP_URL)
-  );
-  setSessionStartCookie(response);
+  await setSessionStartCookieStore();
 
   revalidatePath('/', 'layout');
   redirect(AUTH_CONFIG.DEFAULT_REDIRECT);
@@ -121,10 +118,7 @@ export async function signUpWithEmail(
   // No need to manually insert here.
 
   // Set the 1-day session marker cookie
-  const response = NextResponse.redirect(
-    new URL(AUTH_CONFIG.DEFAULT_REDIRECT, process.env.NEXT_PUBLIC_APP_URL)
-  );
-  setSessionStartCookie(response);
+  await setSessionStartCookieStore();
 
   revalidatePath('/', 'layout');
   redirect(AUTH_CONFIG.DEFAULT_REDIRECT);
@@ -163,6 +157,3 @@ export async function signInWithGoogle(): Promise<void> {
 
   redirect(data.url);
 }
-
-// Need to import NextResponse for redirects in server actions
-import { NextResponse } from 'next/server';

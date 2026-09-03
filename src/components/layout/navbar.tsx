@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown, ShoppingCart, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { navItems } from '@/lib/constants/motorcycles';
-import { siteConfig } from '@/config/site';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/use-auth';
 import { useCart } from '@/hooks/use-cart';

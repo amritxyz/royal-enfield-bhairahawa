@@ -7,7 +7,6 @@ import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { heroSlides } from '@/lib/constants/motorcycles';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 
 export function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);

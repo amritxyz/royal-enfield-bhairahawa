@@ -1,9 +1,8 @@
 // src/components/sections/rides-section.tsx
 import Link from 'next/link';
-import { ArrowRight, Clock, Mountain } from 'lucide-react';
+import { ArrowRight, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { rides } from '@/lib/constants/motorcycles';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { SectionHeading } from '@/components/shared/section-heading';
@@ -27,7 +26,7 @@ export function RidesSection() {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-12">
-          {rides.map((ride, index) => (
+          {rides.map((ride) => (
             <Card
               key={ride.id}
               className="group relative bg-background border-white/5 hover:border-accent/30 transition-all duration-500 overflow-hidden"

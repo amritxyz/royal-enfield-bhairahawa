@@ -29,6 +29,23 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Heal missing session marker for an otherwise valid Supabase session.
+  // This covers users who signed in before the marker cookie was introduced
+  // (or whose marker was lost), so they aren't locked out of protected routes.
+  if (user && !sessionValid && !request.cookies.get(AUTH_CONFIG.SESSION_STARTED_AT_COOKIE)) {
+    supabaseResponse.cookies.set(
+      AUTH_CONFIG.SESSION_STARTED_AT_COOKIE,
+      Date.now().toString(),
+      {
+        path: '/',
+        maxAge: AUTH_CONFIG.SESSION_MAX_AGE,
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production',
+      }
+    );
+    sessionValid = true;
+  }
+
   // If on protected route and no valid session, redirect to login
   if (isProtectedRoute && (!user || !sessionValid)) {
     const loginUrl = new URL(AUTH_CONFIG.LOGIN_ROUTE, request.url);

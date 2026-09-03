@@ -4,6 +4,21 @@ import { AUTH_CONFIG } from '@/lib/constants/auth';
 import { createClient } from '@/lib/supabase/server';
 
 /**
+ * Marks the session start time in a cookie using the request cookie store.
+ * This is the correct way to set cookies inside Server Actions before a
+ * redirect() — building a NextResponse here is discarded by redirect().
+ */
+export async function setSessionStartCookieStore() {
+  const cookieStore = await cookies();
+  cookieStore.set(AUTH_CONFIG.SESSION_STARTED_AT_COOKIE, Date.now().toString(), {
+    maxAge: AUTH_CONFIG.SESSION_MAX_AGE,
+    path: '/',
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+  });
+}
+
+/**
  * Checks if the current session has exceeded the 1-day maximum age.
  * Returns true if the session is still valid, false if it should be invalidated.
  */
