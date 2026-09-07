@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 @theme {
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-oswald), system-ui, sans-serif;
+
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
@@ -28,40 +31,40 @@
   --color-ring: hsl(var(--ring));
 
   --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 1px);
+  --radius-sm: calc(var(--radius) - 2px);
 }
 
 :root {
-  --background: 0 0% 3.9%;
+  --background: 0 0% 5.5%; /* #0E0E0E - Pitch Asphalt */
   --foreground: 0 0% 98%;
 
-  --card: 0 0% 3.9%;
+  --card: 0 0% 8.5%; /* #161616 - Precision Machined Card */
   --card-foreground: 0 0% 98%;
 
-  --popover: 0 0% 3.9%;
+  --popover: 0 0% 7.5%;
   --popover-foreground: 0 0% 98%;
 
-  --primary: 0 0% 98%;
-  --primary-foreground: 0 0% 9%;
+  --primary: 356 78% 48%; /* #D8232A - Royal Enfield Signature Crimson */
+  --primary-foreground: 0 0% 100%;
 
-  --secondary: 0 0% 14.9%;
+  --secondary: 0 0% 11.5%; /* #1D1D1D - Charcoal Steel */
   --secondary-foreground: 0 0% 98%;
 
-  --muted: 0 0% 14.9%;
-  --muted-foreground: 0 0% 63.9%;
+  --muted: 0 0% 14.5%; /* #252525 */
+  --muted-foreground: 0 0% 62%; /* #9E9E9E */
 
-  --accent: 28 100% 54%;
-  --accent-foreground: 0 0% 9%;
+  --accent: 356 78% 48%; /* #D8232A - Royal Enfield Signature Crimson */
+  --accent-foreground: 0 0% 100%;
 
-  --destructive: 0 62.8% 30.5%;
+  --destructive: 0 72% 40%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 0 0% 14.9%;
-  --input: 0 0% 14.9%;
-  --ring: 28 100% 54%;
+  --border: 0 0% 16%; /* #292929 - Precision Machined Border */
+  --input: 0 0% 16%;
+  --ring: 356 78% 48%;
 
-  --radius: 0.5rem;
+  --radius: 0.25rem;
 }
 
 @layer base {
@@ -74,10 +77,14 @@
     color: hsl(var(--foreground));
     -webkit-font-smoothing: antialiased;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-oswald), var(--font-inter), sans-serif;
+    letter-spacing: 0.03em;
+  }
 }
 
 /* Custom scrollbar */
-
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -88,7 +95,7 @@
 
 ::-webkit-scrollbar-thumb {
   background: hsl(var(--muted));
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -96,19 +103,16 @@
 }
 
 /* Smooth scroll */
-
 html {
   scroll-behavior: smooth;
 }
 
-/* Hero animations */
-
+/* Hero & Section animations */
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(30px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -119,7 +123,6 @@ html {
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
@@ -128,9 +131,8 @@ html {
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.97);
   }
-
   to {
     opacity: 1;
     transform: scale(1);
@@ -138,62 +140,65 @@ html {
 }
 
 .animate-slide-up {
-  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.6s ease forwards;
+  animation: fadeIn 0.5s ease forwards;
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Stagger delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
 
-.delay-100 {
-  animation-delay: 100ms;
+/* Royal Enfield Heritage Utilities */
+.font-heading {
+  font-family: var(--font-oswald), var(--font-inter), sans-serif;
 }
 
-.delay-200 {
-  animation-delay: 200ms;
+/* Solid asphalt panel (replaces generic glassmorphism) */
+.re-panel {
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
 }
 
-.delay-300 {
-  animation-delay: 300ms;
+.re-panel-interactive {
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  transition: all 0.3s ease;
+}
+.re-panel-interactive:hover {
+  border-color: hsl(var(--accent) / 0.5);
 }
 
-.delay-400 {
-  animation-delay: 400ms;
+/* Authentic Royal Enfield Red Accent Line */
+.re-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-oswald), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: hsl(var(--accent));
 }
 
-.delay-500 {
-  animation-delay: 500ms;
-}
-
-.delay-600 {
-  animation-delay: 600ms;
-}
-
-/* Gradient text */
-
-.text-gradient {
-  @apply bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500 bg-clip-text text-transparent;
-}
-
-/* Glass effect */
-
-.glass {
-  @apply border border-white/10 bg-white/5 backdrop-blur-xl;
-}
-
-/* Noise texture */
-
+/* Mechanical subtle noise overlay */
 .noise-overlay::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 1;
 }
+

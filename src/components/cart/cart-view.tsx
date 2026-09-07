@@ -22,7 +22,7 @@ export function CartView() {
 
   if (!hydrated) {
     return (
-      <div className="glass rounded-2xl p-10 text-center text-muted-foreground">
+      <div className="bg-card border border-border rounded-sm p-10 text-center text-muted-foreground">
         Loading cart...
       </div>
     );
@@ -30,17 +30,17 @@ export function CartView() {
 
   if (items.length === 0) {
     return (
-      <div className="glass rounded-2xl p-12 text-center">
+      <div className="bg-card border border-border rounded-sm p-12 text-center">
         <ShoppingBag className="w-10 h-10 text-accent mx-auto mb-4" />
-        <h3 className="text-xl font-bold text-white mb-2">Your cart is empty</h3>
-        <p className="text-sm text-muted-foreground mb-6">
-          Browse genuine accessories and add them to your cart.
+        <h3 className="text-xl font-heading font-bold uppercase text-white mb-2">Your Cart is Empty</h3>
+        <p className="text-xs text-zinc-400 mb-6">
+          Browse genuine Royal Enfield accessories and gear for your ride.
         </p>
         <Button
-          className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+          className="bg-accent hover:bg-accent/90 text-white font-heading uppercase tracking-wider font-bold"
           asChild
         >
-          <Link href="/accessories">Shop accessories</Link>
+          <Link href="/accessories">Explore Accessories</Link>
         </Button>
       </div>
     );
@@ -52,11 +52,11 @@ export function CartView() {
         {items.map((item) => (
           <div
             key={item.id}
-            className="glass rounded-2xl p-4 sm:p-5 flex gap-4"
+            className="bg-card border border-border rounded-sm p-4 sm:p-5 flex gap-4"
           >
             <Link
               href={`/accessories/${item.id}`}
-              className="relative w-24 h-24 sm:w-28 sm:h-28 shrink-0 overflow-hidden rounded-xl bg-zinc-900"
+              className="relative w-24 h-24 sm:w-28 sm:h-28 shrink-0 overflow-hidden rounded-sm bg-[#181818] border border-border"
             >
               <Image
                 src={item.image}
@@ -69,24 +69,24 @@ export function CartView() {
             <div className="flex-1 min-w-0">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-[10px] tracking-[0.2em] text-accent uppercase mb-1">
+                  <p className="font-heading text-[10px] tracking-[0.2em] text-accent uppercase mb-1 font-semibold">
                     {item.category}
                   </p>
                   <Link
                     href={`/accessories/${item.id}`}
-                    className="text-white font-semibold hover:text-accent transition-colors"
+                    className="text-white font-heading text-lg font-bold uppercase hover:text-accent transition-colors tracking-wide"
                   >
                     {item.name}
                   </Link>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {formatNpr(item.price)}
+                  <p className="text-xs text-zinc-400 mt-1">
+                    {formatNpr(item.price)} each
                   </p>
                 </div>
                 <Button
                   type="button"
                   variant="ghost"
                   size="icon"
-                  className="text-muted-foreground hover:text-destructive"
+                  className="text-zinc-500 hover:text-destructive"
                   onClick={() => removeItem(item.id)}
                   aria-label={`Remove ${item.name}`}
                 >
@@ -99,7 +99,7 @@ export function CartView() {
                   onDecrement={() => decrement(item.id)}
                   onIncrement={() => increment(item.id)}
                 />
-                <p className="text-sm font-semibold text-white">
+                <p className="font-heading text-base font-bold text-white">
                   {formatNpr(item.price * item.quantity)}
                 </p>
               </div>
@@ -108,35 +108,38 @@ export function CartView() {
         ))}
       </div>
 
-      <aside className="glass rounded-2xl p-6 h-fit lg:sticky lg:top-28">
-        <h3 className="text-lg font-bold text-white mb-4">Order summary</h3>
-        <div className="flex items-center justify-between text-sm mb-2">
-          <span className="text-muted-foreground">Items</span>
-          <span className="text-white">{itemCount}</span>
+      <aside className="bg-card border border-border rounded-sm p-6 h-fit lg:sticky lg:top-28">
+        <h3 className="font-heading text-lg font-bold uppercase text-white mb-4 tracking-wider flex items-center gap-2">
+          <span className="w-1.5 h-3 bg-accent" />
+          Order Summary
+        </h3>
+        <div className="flex items-center justify-between text-xs font-heading uppercase text-zinc-400 mb-2">
+          <span>Total Items</span>
+          <span className="text-white font-bold">{itemCount}</span>
         </div>
-        <div className="flex items-center justify-between mb-6">
-          <span className="text-muted-foreground">Subtotal</span>
-          <span className="text-xl font-semibold text-accent">
+        <div className="flex items-center justify-between mb-6 pt-3 border-t border-border">
+          <span className="font-heading text-xs uppercase text-zinc-400">Subtotal</span>
+          <span className="font-heading text-2xl font-bold text-accent">
             {formatNpr(subtotal)}
           </span>
         </div>
         <Button
           size="lg"
           disabled
-          className="w-full bg-accent/60 text-accent-foreground font-semibold h-12 mb-3"
+          className="w-full bg-accent/60 text-white font-heading uppercase tracking-wider font-bold h-12 mb-3"
         >
-          Checkout coming soon
+          Checkout Coming Soon
         </Button>
         <Button
           type="button"
           variant="outline"
-          className="w-full border-white/10 bg-white/5 text-white hover:bg-white/10"
+          className="w-full border-border bg-secondary text-white font-heading uppercase tracking-wider text-xs hover:border-accent"
           onClick={clear}
         >
-          Clear cart
+          Clear Cart
         </Button>
-        <p className="text-xs text-muted-foreground mt-4 text-center">
-          Your cart is saved on this device. Payment is not enabled yet.
+        <p className="text-[11px] text-zinc-500 mt-4 text-center">
+          Cart is saved locally on your device.
         </p>
       </aside>
     </div>

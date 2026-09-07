@@ -1,6 +1,6 @@
 // src/app/layout.tsx
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Oswald } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
@@ -12,6 +12,13 @@ import { CartProvider } from '@/lib/cart/context';
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap',
+});
+
+const oswald = Oswald({
+  subsets: ['latin'],
+  variable: '--font-oswald',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -39,8 +46,9 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
-          inter.variable
+          'min-h-screen bg-background font-sans text-foreground antialiased selection:bg-accent selection:text-white',
+          inter.variable,
+          oswald.variable
         )}
       >
         <AuthProvider>

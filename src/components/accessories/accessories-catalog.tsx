@@ -54,14 +54,14 @@ export function AccessoriesCatalog({
 
   return (
     <div className="mt-12">
-      <div className="glass rounded-2xl p-4 lg:p-5 mb-8 sticky top-20 z-20">
+      <div className="bg-card border border-border rounded-sm p-4 lg:p-5 mb-8 sticky top-20 z-20 shadow-xl">
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
             <Input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search helmets, luggage, guards..."
+              placeholder="Search helmets, luggage, guards, riding gear..."
               className="pl-10 h-11 py-0"
               aria-label="Search accessories"
             />
@@ -69,7 +69,7 @@ export function AccessoriesCatalog({
           <select
             value={sort}
             onChange={(event) => setSort(event.target.value as SortOption)}
-            className="h-11 px-4 bg-secondary/50 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-colors lg:w-56"
+            className="h-11 px-4 bg-secondary border border-border rounded-sm text-white font-heading text-xs uppercase tracking-wider focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-colors lg:w-56"
             aria-label="Sort accessories"
           >
             {sortOptions.map((option) => (
@@ -87,10 +87,10 @@ export function AccessoriesCatalog({
               type="button"
               onClick={() => setCategory(item)}
               className={cn(
-                'px-3 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase border transition-colors',
+                'px-3 py-1 rounded-sm text-xs font-heading font-bold tracking-wider uppercase border transition-colors',
                 category === item
-                  ? 'bg-accent text-accent-foreground border-accent'
-                  : 'border-white/10 text-muted-foreground hover:text-white hover:border-white/20'
+                  ? 'bg-accent text-white border-accent'
+                  : 'border-border bg-secondary text-zinc-400 hover:text-white hover:border-white/30'
               )}
             >
               {item}
@@ -99,15 +99,15 @@ export function AccessoriesCatalog({
         </div>
       </div>
 
-      <p className="text-sm text-muted-foreground mb-6">
-        {filtered.length} {filtered.length === 1 ? 'product' : 'products'}
+      <p className="text-xs font-heading uppercase tracking-widest text-zinc-400 mb-6">
+        {filtered.length} {filtered.length === 1 ? 'Product' : 'Products'} Found
       </p>
 
       {filtered.length === 0 ? (
-        <div className="glass rounded-2xl p-12 text-center">
-          <p className="text-white font-medium mb-2">No matching accessories</p>
-          <p className="text-sm text-muted-foreground">
-            Try a different search or category.
+        <div className="bg-card border border-border rounded-sm p-12 text-center">
+          <p className="text-white font-heading text-lg uppercase font-bold mb-2">No Matching Accessories</p>
+          <p className="text-xs text-zinc-400">
+            Try a different search keyword or category filter.
           </p>
         </div>
       ) : (

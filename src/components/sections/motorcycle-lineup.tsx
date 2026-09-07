@@ -13,25 +13,24 @@ export function MotorcycleLineup() {
   const series400 = motorcycles.filter((m) => m.category === '400cc+');
 
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden">
-      {/* Background accent */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-accent/5 blur-[150px] rounded-full" />
-
+    <section className="relative py-20 lg:py-28 bg-[#0D0D0D]">
       <div className="container mx-auto px-4 lg:px-8 relative">
         <SectionHeading
-          label="Motorcycles"
-          title="Explore the complete lineup"
-          description="Discover the Royal Enfield range available at our Bhairahawa showroom."
+          label="Motorcycle Range"
+          title="The Royal Enfield Lineup"
+          description="Explore our complete fleet available at our official Bhairahawa showroom. Engineered with pure motorcycling heritage."
         />
 
         {/* 350cc Series */}
         <div className="mb-16">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="h-px flex-1 bg-gradient-to-r from-accent/50 to-transparent" />
-            <h3 className="text-sm tracking-[0.3em] text-accent uppercase font-medium">
+          <div className="flex items-center gap-3 mb-6 pb-3 border-b border-border">
+            <div className="w-2 h-4 bg-accent" />
+            <h3 className="font-heading text-lg tracking-wider text-white uppercase font-bold">
               350cc Series — J-Platform
             </h3>
-            <div className="h-px flex-1 bg-gradient-to-l from-accent/50 to-transparent" />
+            <span className="text-xs font-heading text-zinc-500 uppercase tracking-widest ml-auto">
+              Classic & Urban Cruisers
+            </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -43,12 +42,14 @@ export function MotorcycleLineup() {
 
         {/* 400cc+ Series */}
         <div>
-          <div className="flex items-center gap-3 mb-8">
-            <div className="h-px flex-1 bg-gradient-to-r from-accent/50 to-transparent" />
-            <h3 className="text-sm tracking-[0.3em] text-accent uppercase font-medium">
-              400cc+ Series
+          <div className="flex items-center gap-3 mb-6 pb-3 border-b border-border">
+            <div className="w-2 h-4 bg-accent" />
+            <h3 className="font-heading text-lg tracking-wider text-white uppercase font-bold">
+              400cc+ Series — Expedition & Roadster
             </h3>
-            <div className="h-px flex-1 bg-gradient-to-l from-accent/50 to-transparent" />
+            <span className="text-xs font-heading text-zinc-500 uppercase tracking-widest ml-auto">
+              Sherpa 450 & Scrambler
+            </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -68,48 +69,60 @@ function MotorcycleCard({
   motorcycle: (typeof motorcycles)[number];
 }) {
   return (
-    <Card className="group relative bg-secondary/50 border-white/5 hover:border-accent/30 transition-all duration-500 overflow-hidden">
-      {/* Image placeholder */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-zinc-800 to-zinc-900">
-        {/* 
-          <Image
-            src={motorcycle.image}
-            alt={motorcycle.name}
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-        */}
-        <div className="absolute inset-0 bg-gradient-to-t from-secondary via-transparent to-transparent" />
+    <Card className="group relative bg-card border border-border hover:border-accent/60 transition-all duration-300 rounded-sm overflow-hidden flex flex-col justify-between">
+      <div>
+        {/* Motorcycle visual block */}
+        <div className="relative aspect-[4/3] overflow-hidden bg-[#181818] border-b border-border/60">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#282828_0%,#141414_100%)]" />
+          
+          {/* Subtle tire track / mechanical graphic watermark */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-10">
+            <span className="font-heading text-6xl font-black uppercase text-white tracking-widest select-none">
+              RE
+            </span>
+          </div>
 
-        {motorcycle.isNew && (
-          <Badge className="absolute top-3 left-3 bg-accent text-accent-foreground text-[10px] font-bold tracking-wider">
-            NEW
-          </Badge>
-        )}
+          {motorcycle.isNew && (
+            <Badge className="absolute top-3 left-3 bg-accent text-white text-[10px] font-heading tracking-widest font-bold border-none rounded-sm">
+              NEW MODEL
+            </Badge>
+          )}
 
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/5 transition-colors duration-500" />
+          <div className="absolute bottom-3 left-3 px-2 py-0.5 bg-black/80 border border-white/10 rounded-sm">
+            <span className="text-[10px] font-heading tracking-wider text-zinc-300 uppercase">
+              {motorcycle.category}
+            </span>
+          </div>
+        </div>
+
+        <CardContent className="p-5">
+          <p className="font-heading text-[11px] tracking-[0.2em] text-accent uppercase font-semibold mb-1">
+            {motorcycle.subcategory}
+          </p>
+          <h3 className="font-heading text-2xl font-bold uppercase text-white mb-2 group-hover:text-accent transition-colors tracking-wide">
+            {motorcycle.name}
+          </h3>
+          <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed mb-4">
+            {motorcycle.description}
+          </p>
+        </CardContent>
       </div>
 
-      <CardContent className="p-5">
-        <p className="text-[10px] tracking-[0.2em] text-accent uppercase mb-1">
-          {motorcycle.subcategory}
-        </p>
-        <h3 className="text-lg font-bold text-white mb-2 group-hover:text-accent transition-colors">
-          {motorcycle.name}
-        </h3>
-        <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
-          {motorcycle.description}
-        </p>
-
+      <div className="px-5 pb-5 pt-0 border-t border-border/40 mt-auto flex items-center justify-between pt-3">
         <Link
           href={motorcycle.href}
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-white hover:text-accent transition-colors group/link"
+          className="inline-flex items-center gap-1 text-xs font-heading font-bold uppercase tracking-wider text-white hover:text-accent transition-colors group/link"
         >
-          View Details
-          <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+          View Specs & Booking
+          <ArrowUpRight className="w-3.5 h-3.5 text-accent transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
         </Link>
-      </CardContent>
+        <Link
+          href={`/book?motorcycle=${motorcycle.id}`}
+          className="text-[11px] font-heading uppercase tracking-wider text-zinc-400 hover:text-white"
+        >
+          Test Ride →
+        </Link>
+      </div>
     </Card>
   );
 }

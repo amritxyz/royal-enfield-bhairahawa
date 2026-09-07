@@ -78,13 +78,13 @@ function LoginForm() {
             </div>
           )}
 
-          <form action={formAction} className="mt-8 space-y-5">
+          <form action={formAction} className="mt-8 space-y-5 bg-card border border-border rounded-sm p-6 sm:p-8">
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-white mb-2"
+                className="block text-xs font-heading uppercase tracking-wider font-semibold text-zinc-300 mb-2"
               >
-                Email Address
+                Rider Email Address
               </label>
               <input
                 id="email"
@@ -92,15 +92,15 @@ function LoginForm() {
                 type="email"
                 required
                 autoComplete="email"
-                className="w-full px-4 py-3 bg-secondary/50 border border-white/10 rounded-lg text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-colors"
-                placeholder="your@email.com"
+                className="w-full px-4 py-2.5 bg-secondary/80 border border-border rounded-sm text-white placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-colors"
+                placeholder="rider@royalenfield.com"
               />
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-white mb-2"
+                className="block text-xs font-heading uppercase tracking-wider font-semibold text-zinc-300 mb-2"
               >
                 Password
               </label>
@@ -111,7 +111,7 @@ function LoginForm() {
                   type={showPassword ? 'text' : 'password'}
                   required
                   autoComplete="current-password"
-                  className="w-full px-4 py-3 bg-secondary/50 border border-white/10 rounded-lg text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-colors pr-12"
+                  className="w-full px-4 py-2.5 bg-secondary/80 border border-border rounded-sm text-white placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-colors pr-12"
                   placeholder="••••••••"
                 />
                 <button
@@ -121,9 +121,9 @@ function LoginForm() {
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
+                    <EyeOff className="w-4 h-4" />
                   ) : (
-                    <Eye className="w-5 h-5" />
+                    <Eye className="w-4 h-4" />
                   )}
                 </button>
               </div>
@@ -132,7 +132,7 @@ function LoginForm() {
             <div className="flex items-center justify-end">
               <Link
                 href="/forgot-password"
-                className="text-sm text-accent hover:underline"
+                className="text-xs font-heading uppercase tracking-wider text-accent hover:underline font-semibold"
               >
                 Forgot password?
               </Link>
@@ -142,7 +142,7 @@ function LoginForm() {
               type="submit"
               size="lg"
               disabled={isPending}
-              className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold h-12"
+              className="w-full bg-accent hover:bg-accent/90 text-white font-heading uppercase tracking-wider font-bold h-11 text-xs"
             >
               {isPending ? (
                 <>
@@ -156,10 +156,10 @@ function LoginForm() {
 
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-white/10" />
+                <div className="w-full border-t border-border" />
               </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-4 text-muted-foreground">
+              <div className="relative flex justify-center text-[10px] font-heading uppercase tracking-widest">
+                <span className="bg-card px-3 text-zinc-500">
                   Or continue with
                 </span>
               </div>
@@ -171,7 +171,7 @@ function LoginForm() {
               size="lg"
               onClick={handleGoogleSignIn}
               disabled={googleLoading}
-              className="w-full border-white/10 bg-white/5 hover:bg-white/10 text-white h-12"
+              className="w-full border-border bg-secondary hover:border-accent text-white font-heading uppercase tracking-wider text-xs h-11"
             >
               {googleLoading ? (
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -195,16 +195,16 @@ function LoginForm() {
                   />
                 </svg>
               )}
-              {googleLoading ? 'Connecting...' : 'Google'}
+              {googleLoading ? 'Connecting...' : 'Google Account'}
             </Button>
 
-            <p className="text-center text-sm text-muted-foreground">
-              Don&apos;t have an account?{' '}
+            <p className="text-center text-xs text-zinc-400">
+              New rider?{' '}
               <Link
                 href="/register"
-                className="text-accent hover:underline font-medium"
+                className="text-accent hover:underline font-heading font-semibold uppercase tracking-wider"
               >
-                Sign up
+                Create Account
               </Link>
             </p>
           </form>

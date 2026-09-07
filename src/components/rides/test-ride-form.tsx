@@ -13,7 +13,7 @@ import { bookTestRide, type BookTestRideState } from '@/lib/rides/actions';
 const initialState: BookTestRideState = { success: false };
 
 const fieldClassName =
-  'w-full px-4 py-3 bg-secondary/50 border border-white/10 rounded-lg text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-colors';
+  'w-full px-4 py-2.5 bg-secondary/80 border border-border rounded-sm text-white placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-colors';
 
 function todayIsoDate() {
   const now = new Date();
@@ -43,8 +43,8 @@ export function TestRideForm({
 
   if (loading) {
     return (
-      <div className="glass rounded-2xl p-8 text-center text-muted-foreground">
-        <Loader2 className="w-5 h-5 animate-spin mx-auto mb-3" />
+      <div className="bg-card border border-border rounded-sm p-8 text-center text-muted-foreground">
+        <Loader2 className="w-5 h-5 animate-spin mx-auto mb-3 text-accent" />
         Checking your session...
       </div>
     );
@@ -53,29 +53,28 @@ export function TestRideForm({
   if (!user) {
     const redirectTo = pathname || '/book';
     return (
-      <div className="glass rounded-2xl p-8 text-center">
+      <div className="bg-card border border-border rounded-sm p-8 text-center">
         <Lock className="w-8 h-8 text-accent mx-auto mb-4" />
-        <h3 className="text-xl font-bold text-white mb-2">Sign in to book</h3>
-        <p className="text-sm text-muted-foreground mb-6">
-          Test rides are available to signed-in riders so we can confirm your
-          appointment securely.
+        <h3 className="text-xl font-heading font-bold uppercase text-white mb-2">Rider Sign In Required</h3>
+        <p className="text-xs text-zinc-400 mb-6 max-w-md mx-auto">
+          Test rides are reserved for registered riders so our Bhairahawa showroom team can verify credentials and confirm your booking.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button
-            className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+            className="bg-accent hover:bg-accent/90 text-white font-heading uppercase tracking-wider font-bold"
             asChild
           >
             <Link href={`/login?redirect=${encodeURIComponent(redirectTo)}`}>
-              Sign in
+              Sign In
             </Link>
           </Button>
           <Button
             variant="outline"
-            className="border-white/10 bg-white/5 text-white hover:bg-white/10"
+            className="border-border bg-secondary text-white font-heading uppercase tracking-wider hover:border-accent"
             asChild
           >
             <Link href={`/register?redirect=${encodeURIComponent(redirectTo)}`}>
-              Create account
+              Create Rider Account
             </Link>
           </Button>
         </div>
@@ -84,7 +83,7 @@ export function TestRideForm({
   }
 
   return (
-    <form ref={formRef} action={formAction} className="space-y-6">
+    <form ref={formRef} action={formAction} className="space-y-5 bg-card border border-border rounded-sm p-6 sm:p-8">
       {state.success && (
         <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-start gap-3">
           <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />

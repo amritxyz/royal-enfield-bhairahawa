@@ -57,7 +57,7 @@ export default async function AccessoryDetailPage({
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/5 bg-gradient-to-br from-zinc-800 to-zinc-900">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-sm border border-border bg-[#141414]">
             <Image
               src={accessory.image}
               alt={accessory.name}
@@ -69,19 +69,19 @@ export default async function AccessoryDetailPage({
           </div>
 
           <div>
-            <Badge className="bg-accent/10 text-accent border-accent/20 text-[10px] font-bold tracking-wider mb-4">
+            <Badge className="bg-black/80 text-accent border border-accent/30 text-[10px] font-heading font-bold uppercase tracking-wider mb-4 rounded-sm">
               {accessory.category}
             </Badge>
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+            <h1 className="text-3xl sm:text-5xl font-heading font-bold uppercase text-white tracking-wide mb-3">
               {accessory.name}
             </h1>
-            <p className="text-2xl font-semibold text-accent mb-6">
+            <p className="text-2xl font-heading font-bold text-accent mb-6">
               {formatNpr(accessory.price)}
             </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
+            <p className="text-zinc-300 leading-relaxed mb-4 text-sm">
               {accessory.details}
             </p>
-            <p className="text-muted-foreground leading-relaxed mb-8">
+            <p className="text-zinc-400 leading-relaxed mb-8 text-sm">
               {accessory.description}
             </p>
             <AccessoryProductActions accessory={accessory} />

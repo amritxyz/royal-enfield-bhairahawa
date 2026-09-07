@@ -35,11 +35,11 @@ export default function RegisterPage() {
             </div>
           )}
 
-          <form action={formAction} className="mt-8 space-y-5">
+          <form action={formAction} className="mt-8 space-y-5 bg-card border border-border rounded-sm p-6 sm:p-8">
             <div>
               <label
                 htmlFor="fullName"
-                className="block text-sm font-medium text-white mb-2"
+                className="block text-xs font-heading uppercase tracking-wider font-semibold text-zinc-300 mb-2"
               >
                 Full Name *
               </label>
@@ -49,7 +49,7 @@ export default function RegisterPage() {
                 type="text"
                 required
                 autoComplete="name"
-                className="w-full px-4 py-3 bg-secondary/50 border border-white/10 rounded-lg text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 transition-colors"
+                className="w-full px-4 py-2.5 bg-secondary/80 border border-border rounded-sm text-white placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-colors"
                 placeholder="John Doe"
               />
             </div>
@@ -57,9 +57,9 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-white mb-2"
+                className="block text-xs font-heading uppercase tracking-wider font-semibold text-zinc-300 mb-2"
               >
-                Email Address *
+                Rider Email Address *
               </label>
               <input
                 id="email"
@@ -67,24 +67,24 @@ export default function RegisterPage() {
                 type="email"
                 required
                 autoComplete="email"
-                className="w-full px-4 py-3 bg-secondary/50 border border-white/10 rounded-lg text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 transition-colors"
-                placeholder="your@email.com"
+                className="w-full px-4 py-2.5 bg-secondary/80 border border-border rounded-sm text-white placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-colors"
+                placeholder="rider@royalenfield.com"
               />
             </div>
 
             <div>
               <label
                 htmlFor="phone"
-                className="block text-sm font-medium text-white mb-2"
+                className="block text-xs font-heading uppercase tracking-wider font-semibold text-zinc-300 mb-2"
               >
-                Phone Number
+                Contact Phone
               </label>
               <input
                 id="phone"
                 name="phone"
                 type="tel"
                 autoComplete="tel"
-                className="w-full px-4 py-3 bg-secondary/50 border border-white/10 rounded-lg text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 transition-colors"
+                className="w-full px-4 py-2.5 bg-secondary/80 border border-border rounded-sm text-white placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-colors"
                 placeholder="+977 9800000000"
               />
             </div>
@@ -92,7 +92,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-white mb-2"
+                className="block text-xs font-heading uppercase tracking-wider font-semibold text-zinc-300 mb-2"
               >
                 Password *
               </label>
@@ -104,7 +104,7 @@ export default function RegisterPage() {
                   required
                   minLength={6}
                   autoComplete="new-password"
-                  className="w-full px-4 py-3 bg-secondary/50 border border-white/10 rounded-lg text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 transition-colors pr-12"
+                  className="w-full px-4 py-2.5 bg-secondary/80 border border-border rounded-sm text-white placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-colors pr-12"
                   placeholder="At least 6 characters"
                 />
                 <button
@@ -114,13 +114,13 @@ export default function RegisterPage() {
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
+                    <EyeOff className="w-4 h-4" />
                   ) : (
-                    <Eye className="w-5 h-5" />
+                    <Eye className="w-4 h-4" />
                   )}
                 </button>
               </div>
-              <p className="text-xs text-muted-foreground mt-1.5">
+              <p className="text-[11px] text-zinc-500 mt-1.5 font-sans">
                 Must be at least 6 characters
               </p>
             </div>
@@ -129,25 +129,25 @@ export default function RegisterPage() {
               type="submit"
               size="lg"
               disabled={isPending}
-              className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold h-12"
+              className="w-full bg-accent hover:bg-accent/90 text-white font-heading uppercase tracking-wider font-bold h-11 text-xs"
             >
               {isPending ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Creating account...
+                  Creating Rider Account...
                 </>
               ) : (
-                'Create Account'
+                'Create Rider Account'
               )}
             </Button>
 
-            <p className="text-center text-sm text-muted-foreground">
+            <p className="text-center text-xs text-zinc-400">
               Already have an account?{' '}
               <Link
                 href="/login"
-                className="text-accent hover:underline font-medium"
+                className="text-accent hover:underline font-heading font-semibold uppercase tracking-wider"
               >
-                Sign in
+                Sign In
               </Link>
             </p>
           </form>
